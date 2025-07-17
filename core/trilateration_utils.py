@@ -21,20 +21,37 @@ def trilateration_optim(distances, positions):
     Effectue une trilatération 3D à partir des distances connues et des positions des ESP32.
     Utilise une optimisation pour minimiser l'erreur sur les distances.
     """
+    if len(distances) != len(positions):
+        print(f"[ERREUR] Nombre de distances ({len(distances)}) != nombre de positions ({len(positions)})")
+        return None
+    
+    if len(distances) < 3:
+        print(f"[ERREUR] Pas assez de points pour trilatération ({len(distances)} < 3)")
+        return None
+    
     def loss(pos):
         x, y, z = pos
-        return sum(
+        error = sum(
             (np.sqrt((x - xi)**2 + (y - yi)**2 + (z - zi)**2) - di)**2
             for (xi, yi, zi), di in zip(positions, distances)
         )
+        return error
 
     x0 = np.mean([p[0] for p in positions])
     y0 = np.mean([p[1] for p in positions])
     z0 = 0.5  # Hauteur estimée du beacon
 
     bounds = [(0, 20), (0, 11), (0, 3)]  # Adapté à ton plan (voir map)
+    
+    from scipy.optimize import minimize
     result = minimize(loss, (x0, y0, z0), method='L-BFGS-B', bounds=bounds)
-    return result.x if result.success else None
+    
+    if result.success:
+        print(f"[TRILATERATION] ✅ Succès: position = ({result.x[0]:.2f}, {result.x[1]:.2f}, {result.x[2]:.2f})")
+        return result.x
+    else:
+        print(f"[TRILATERATION] ❌ Échec: {result.message}")
+        return None
 
 def apply_proximity_bonus(distances, filtered_rssi, gateway_positions=None, threshold=1.0, max_bonus_db=3):
     """

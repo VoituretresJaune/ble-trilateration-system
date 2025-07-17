@@ -1,160 +1,50 @@
 {
-  "active_preset": "salle_2_multi",
+  "active_preset": "salle_3",
+  "beacon_filter": [
+    "balise_1"
+  ],
   "gateway_positions": {
     "esp32_1": [
-      2.56,
-      4.1,
+      6.77,
+      10.5,
       1
     ],
     "esp32_2": [
-      24.65,
-      3.88,
+      6,
+      7.5,
       1
     ],
     "esp32_3": [
-      0.2,
-      12,
+      6.9,
+      1,
       1
     ],
     "esp32_4": [
-      20,
-      1.73,
+      3,
+      1,
       1
     ]
   },
   "zones": [
     [
       "zone_1",
-      11,
-      0.45,
-      25,
-      4.0
-    ],
-    [
-      "zone_2",
-      22,
-      4,
-      25,
-      6.6
-    ],
-    [
-      "zone_3",
-      0,
-      8,
-      6.5,
-      13.5
-    ],
-    [
-      "zone_4",
-      0.8,
-      0.55,
-      8.5,
-      6
-    ],
-    [
-      "zone_4",
       0,
       0,
-      25,
+      10,
       15
     ]
   ],
   "correction_rssi": {
-    "esp32_1": 0,
-    "esp32_2": 0,
-    "esp32_3": 0,
-    "esp32_4": 0
+    "esp32_1": 3,
+    "esp32_2": 3,
+    "esp32_3": 3,
+    "esp32_4": 3
   },
-  "image_file": "",
+  "image_file": "data/map_salle.png",
   "extent": [
     0,
-    25,
+    10,
     0,
-    15
-  ],
-  "floors": [
-    {
-      "name": "Rez-de-chauss\u00e9e",
-      "image_file": "data/RambuteauRC.png",
-      "extent": [
-        0,
-        25,
-        0,
-        15
-      ],
-      "gateway_positions": {
-        "esp32_1": [
-          2.56,
-          4.1,
-          1
-        ],
-        "esp32_2": [
-          24.65,
-          3.88,
-          1
-        ],
-        "esp32_3": [
-          0.2,
-          12,
-          1
-        ]
-      },
-      "zones": [
-        [
-          "zone_1",
-          11,
-          0.45,
-          25,
-          4.0
-        ],
-        [
-          "zone_2",
-          22,
-          4,
-          25,
-          6.6
-        ],
-        [
-          "zone_3",
-          0,
-          8,
-          6.5,
-          13.5
-        ],
-        [
-          "zone_4",
-          0.8,
-          0.55,
-          8.5,
-          6
-        ]
-      ]
-    },
-    {
-      "name": "1er \u00e9tage",
-      "image_file": "data/RambuteauEtage.png",
-      "extent": [
-        0,
-        25,
-        0,
-        15
-      ],
-      "gateway_positions": {
-        "esp32_4": [
-          20,
-          1.73,
-          1
-        ]
-      },
-      "zones": [
-        [
-          "zone_4",
-          0,
-          0,
-          25,
-          15
-        ]
-      ]
-    }
+    11
   ]
 }

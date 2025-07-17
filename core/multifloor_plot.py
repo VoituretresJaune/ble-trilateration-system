@@ -108,7 +108,7 @@ def get_floor_for_gateway(gateway_id):
     return None, None
 
 def update_multifloor(frame):
-    """Mise à jour des deux étages avec nettoyage complet"""
+    """Mise à jour des deux étages avec filtrage des balises"""
     global circle_artists_floor1, circle_artists_floor2, text_artists_floor1, text_artists_floor2
     global beacon_points_floor1, beacon_points_floor2
     
@@ -141,6 +141,24 @@ def update_multifloor(frame):
         if beacon_name not in beacon_data:
             beacon_data[beacon_name] = []
         beacon_data[beacon_name].append(d)
+
+    # APPLIQUER LE FILTRE DES BALISES
+    from core.config import should_process_beacon
+    
+    filtered_beacon_data = {}
+    for beacon_name, beacon_entries in beacon_data.items():
+        if should_process_beacon(beacon_name):
+            filtered_beacon_data[beacon_name] = beacon_entries
+        else:
+            print(f"[FILTER] Balise {beacon_name} ignorée par le filtre")
+    
+    beacon_data = filtered_beacon_data
+    
+    if not beacon_data:
+        print("[FILTER] Aucune balise autorisée détectée")
+        return
+
+    print(f"[FILTER] Balises autorisées détectées: {list(beacon_data.keys())}")
 
     print(f"\n=== UPDATE MULTI-ÉTAGES ===")
     print(f"Balises détectées: {list(beacon_data.keys())}")
